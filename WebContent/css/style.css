@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-	color: red;
+	color: black;
 	font-family: メイリオ;
 	 background-image : url("../images/kuro.jpg");
 	 text-align : center;
@@ -11,20 +11,19 @@ body {
 }
 
 h1 {
-	color: red;
+	color: #FF00CC;
 }
 
 div {text-align:center;}
 
 table {
-	wigth : 100px;
-	height: 100px;
-	background-color: #FFFFFF;
+	background-color: #FFCCCC;
 }
 th {
-background-color: #FF66FF;
+background-color: #CCFFFF;
 text-align:center;
 }
+
 
 /*.aaa {
 	text-align : center;
