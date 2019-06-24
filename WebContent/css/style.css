@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+body {
+	color: red;
+	font-family: メイリオ;
+	 background-image : url("../images/kuro.jpg");
+	 text-align : center;
+     background-size: cover;                               /* 画像のサイズを指定    */
+     max-width: 100%;                                      /* 横幅のサイズを指定    */
+     height: auto;
+}
+
+h1 {
+	color: red;
+}
+
+div {text-align:center;}
+
+table {
+	wigth : 100px;
+	height: 100px;
+	background-color: #FFFFFF;
+}
+th {
+background-color: #FF66FF;
+}
+
+/*.aaa {
+	text-align : center;
+}*/
+/*text-align : center;*/
