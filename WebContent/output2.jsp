@@ -10,7 +10,7 @@
 	<link rel=stylesheet href="css/style.css">
 	<link rel="shortcut icon" href="images/favicon.ico">
 <meta charset="UTF-8">
-<title>出力画面</title>
+<title>TODOアプリケーション</title>
 </head>
 <body>
 

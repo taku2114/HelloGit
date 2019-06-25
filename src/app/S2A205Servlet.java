@@ -36,10 +36,10 @@ public class S2A205Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		S2A205infoBean InfoBean = (S2A205infoBean) session.getAttribute("InfoBean");
-		if (InfoBean == null) {
-			InfoBean = new S2A205infoBean();
-		}
+		//		S2A205infoBean InfoBean = (S2A205infoBean) session.getAttribute("InfoBean");
+		//		if (InfoBean == null) {
+		//			InfoBean = new S2A205infoBean();
+		//		}
 
 		String important;
 		String text;
@@ -54,13 +54,13 @@ public class S2A205Servlet extends HttpServlet {
 			Class.forName(drvName);
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();) {
-				stmt.executeUpdate("INSERT INTO TODOLIST VALUE (" + important + ",'" + text + "','" + memo + "','" + li + "')");
+				stmt.executeUpdate("INSERT INTO TODOLIST VALUES ('" + important + "','" + text + "','" + memo + "','" + li + "')");
 			}
-			System.out.println("INSERT INTO TODOLIST VALUE (" + important + ",'" + text + "','" + memo + "','" + li + "')");
+			System.out.println("INSERT INTO TODOLIST VALUES ('" + important + "','" + text + "','" + memo + "','" + li + "')");
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(
-							"SELECT * FROM TODOLIST")) {
+							"SELECT * FROM TODOLIST ORDER BY IMPORTANT desc")) {
 				while (rs.next()) {
 					S2A205RecordBean todoBean = new S2A205RecordBean();
 					todoBean.setImportant(rs.getString("IMPORTANT"));
@@ -74,14 +74,14 @@ public class S2A205Servlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		S2A205RecordBean stdRecord = new S2A205RecordBean();
-		stdRecord.setImportant(important);
-		stdRecord.setText(text);
-		stdRecord.setMemo(memo);
-		stdRecord.setLi(li);
-		InfoBean.addstudentRecord(stdRecord);
+		//		S2A205RecordBean stdRecord = new S2A205RecordBean();
+		//		stdRecord.setImportant(important);
+		//		stdRecord.setText(text);
+		//		stdRecord.setMemo(memo);
+		//		stdRecord.setLi(li);
+		//		InfoBean.addstudentRecord(stdRecord);
 
-		session.setAttribute("InfoBean", InfoBean);
+		session.setAttribute("InfoBean", infoBean);
 		getServletContext()
 				.getRequestDispatcher("/output2.jsp").forward(request, response);
 	}
