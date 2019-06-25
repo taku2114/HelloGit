@@ -45,7 +45,7 @@ public class S2A205Servlet extends HttpServlet {
 		String text;
 		String memo;
 		String li;
-
+		S2A205infoBean infoBean = new S2A205infoBean();
 		important = request.getParameter("important");
 		text = request.getParameter("text");
 		memo = request.getParameter("memo");
@@ -67,7 +67,7 @@ public class S2A205Servlet extends HttpServlet {
 					todoBean.setText(rs.getString("TEXT"));
 					todoBean.setMemo(rs.getString("MEMO"));
 					todoBean.setLi(rs.getString("LI"));
-					todoBean.addToBean(todoBean);
+					infoBean.addstudentRecord(todoBean);
 				}
 			}
 		} catch (Exception e) {
