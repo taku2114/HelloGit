@@ -26,13 +26,13 @@ for(S2A205RecordBean rcd : RecordArray) {
 %>
 </table>
 
-<hr>
+<br>
 	<form action="DeleteServlet" method="GET">
-            削除情報<br>
+            削除情報
+<br>
 		<input type="text" name="index" size="20" value="" />
         <input type="SUBMIT" value="送信">
 	</form>
-	<hr>
 <br>
 <%
         out.println("<form action=\"S2A205RemoveServlet\" " + "method=\"post\">");
