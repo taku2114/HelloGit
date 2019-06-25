@@ -18,10 +18,12 @@ div {text-align:center;}
 
 table {
 	background-color: #FFCCCC;
+	color:black;
 }
 th {
 background-color: #CCFFFF;
 text-align:center;
+color: black;
 }
 
 

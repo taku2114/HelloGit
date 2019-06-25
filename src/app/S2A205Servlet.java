@@ -1,6 +1,10 @@
 package app;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +19,14 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/S2A205Servlet")
 public class S2A205Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	String drvName = "oracle.jdbc.driver.OracleDriver";// OracleのJDBCﾄﾞﾗｲﾊﾞ名
+	String url = "jdbc:oracle:thin:@"; // プロトコル名称，サブプロトコル名称，及びサブネーム
+	String servername = "10.11.39.215"; // DBホスト名称
+	String port = "1521"; // サーバが接続を監視する(リスナー)ポート番号
+	String sid = "HCS1"; // インスタンス識別子
+	String user = "h20183060"; // オラクル接続ユーザー（各自の設定値）
+	String pass = "oraclemaster"; // オラクル接続ユーザーのパスワード
 
 	public S2A205Servlet() {
 		super();
@@ -38,6 +50,29 @@ public class S2A205Servlet extends HttpServlet {
 		text = request.getParameter("text");
 		memo = request.getParameter("memo");
 		li = request.getParameter("li");
+		try {
+			Class.forName(drvName);
+			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
+					Statement stmt = conn.createStatement();) {
+				stmt.executeUpdate("INSERT INTO TODOLIST VALUE (" + important + ",'" + text + "','" + memo + "','" + li + "')");
+			}
+			System.out.println("INSERT INTO TODOLIST VALUE (" + important + ",'" + text + "','" + memo + "','" + li + "')");
+			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(
+							"SELECT * FROM TODOLIST")) {
+				while (rs.next()) {
+					S2A205RecordBean todoBean = new S2A205RecordBean();
+					todoBean.setImportant(rs.getString("IMPORTANT"));
+					todoBean.setText(rs.getString("TEXT"));
+					todoBean.setMemo(rs.getString("MEMO"));
+					todoBean.setLi(rs.getString("LI"));
+					todoBean.addToBean(todoBean);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		S2A205RecordBean stdRecord = new S2A205RecordBean();
 		stdRecord.setImportant(important);
