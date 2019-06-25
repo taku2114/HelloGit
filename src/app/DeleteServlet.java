@@ -27,7 +27,7 @@ public class DeleteServlet extends HttpServlet {
 			InfoBean = new S2A205infoBean();
 		}
 
-		if (index > InfoBean) {
+		if (index >= InfoBean.getArraySize()) {
 			getServletContext().getRequestDispatcher("/errorinput.html")
 					.forward(request, response);
 			return;
