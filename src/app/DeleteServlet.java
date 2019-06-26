@@ -33,11 +33,12 @@ public class DeleteServlet extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("index"));
 
 		HttpSession session = request.getSession();
+		session.invalidate();
 		//S2A205infoBean InfoBean = (S2A205infoBean) session.getAttribute("InfoBean");
 		//if (InfoBean == null) {
 		//	InfoBean = new S2A205infoBean();
 		//}
-
+		S2A205infoBean infoBean = new S2A205infoBean();
 		if (index >= infoBean.getArraySize()) {
 			getServletContext().getRequestDispatcher("/errorinput.html")
 					.forward(request, response);
@@ -46,21 +47,19 @@ public class DeleteServlet extends HttpServlet {
 
 		//Beans作成不要
 
-		String important;
-		String text;
-		String memo;
-		String li;
-		S2A205infoBean infoBean = new S2A205infoBean();
-		important = request.getParameter("important");
-		text = request.getParameter("text");
-		memo = request.getParameter("memo");
-		li = request.getParameter("li");
-
 		try {
 			Class.forName(drvName);
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
-					Statement stmt = conn.createStatement();) {
-				stmt.executeUpdate("DELETE FROM STUDENT WHERE  IMPORTANT=index");
+					Statement stmt = conn.createStatement();
+					int rs = stmt.executeUpdate("DELETE FROM TODOLIST WHERE index")) {
+				while (rs.next()) {
+					S2A205RecordBean todoBean = new S2A205RecordBean();
+					todoBean.setImportant(rs.getString("IMPORTANT"));
+					todoBean.setText(rs.getString("TEXT"));
+					todoBean.setMemo(rs.getString("MEMO"));
+					todoBean.setLi(rs.getString("LI"));
+					infoBean.addstudentRecord(todoBean);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
