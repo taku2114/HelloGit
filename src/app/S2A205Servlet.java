@@ -41,6 +41,7 @@ public class S2A205Servlet extends HttpServlet {
 		//			InfoBean = new S2A205infoBean();
 		//		}
 
+		int no = 0;
 		String important;
 		String text;
 		String memo;
@@ -50,23 +51,34 @@ public class S2A205Servlet extends HttpServlet {
 		text = request.getParameter("text");
 		memo = request.getParameter("memo");
 		li = request.getParameter("li");
+
+		try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(
+						"SELECT MAX(NO) FROM TODOLIST")) {
+			rs.next();
+			no = rs.getInt("MAX(NO)") + 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		try {
 			Class.forName(drvName);
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();) {
-				stmt.executeUpdate("INSERT INTO TODOLIST VALUES ('" + important + "','" + text + "','" + memo + "','" + li + "')");
+				stmt.executeUpdate("INSERT INTO TODOLIST VALUES ('" + important + "','" + text + "','" + memo + "','" + li + "','" + no + "')");
 			}
-			System.out.println("INSERT INTO TODOLIST VALUES ('" + important + "','" + text + "','" + memo + "','" + li + "')");
+			System.out.println("INSERT INTO TODOLIST VALUES ('" + important + "','" + text + "','" + memo + "','" + li + "','" + no + "')");
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(
-							"SELECT * FROM TODOLIST ORDER BY IMPORTANT desc")) {
+							"SELECT * FROM TODOLIST ORDER BY NO")) {
 				while (rs.next()) {
 					S2A205RecordBean todoBean = new S2A205RecordBean();
 					todoBean.setImportant(rs.getString("IMPORTANT"));
 					todoBean.setText(rs.getString("TEXT"));
 					todoBean.setMemo(rs.getString("MEMO"));
 					todoBean.setLi(rs.getString("LI"));
+					todoBean.setNo(rs.getInt("No"));
 					infoBean.addstudentRecord(todoBean);
 				}
 			}
@@ -82,8 +94,9 @@ public class S2A205Servlet extends HttpServlet {
 		//		InfoBean.addstudentRecord(stdRecord);
 
 		session.setAttribute("InfoBean", infoBean);
-		getServletContext()
-				.getRequestDispatcher("/output2.jsp").forward(request, response);
+		//getServletContext()
+		//.getRequestDispatcher("/output2.jsp").forward(request, response);
+		response.sendRedirect("output2.jsp");
 	}
 
 }

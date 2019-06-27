@@ -31,7 +31,7 @@ public class ALLDeleteServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int index = Integer.parseInt(request.getParameter("index"));
+		//int index = Integer.parseInt(request.getParameter("index"));
 
 		HttpSession session = request.getSession();
 		session.invalidate();
@@ -40,11 +40,11 @@ public class ALLDeleteServlet extends HttpServlet {
 		//	InfoBean = new S2A205infoBean();
 		//}
 		S2A205infoBean infoBean = new S2A205infoBean();
-		if (index >= infoBean.getArraySize()) {
-			getServletContext().getRequestDispatcher("/errorinput.html")
-					.forward(request, response);
-			return;
-		}
+		//if (index >= infoBean.getArraySize()) {
+		//getServletContext().getRequestDispatcher("/errorinput.html")
+		//.forward(request, response);
+		//return;
+		//}
 
 		//Beans作成不要
 
@@ -77,8 +77,6 @@ public class ALLDeleteServlet extends HttpServlet {
 		//stdRecord.setMemo(memo);
 		//stdRecord.setLi(li);
 		//InfoBean.deletestudentRecord(index - 1);
-
-		session.setAttribute("InfoBean", infoBean);
 
 		getServletContext()
 				.getRequestDispatcher("/output2.jsp").forward(request, response);

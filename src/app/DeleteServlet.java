@@ -34,17 +34,16 @@ public class DeleteServlet extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("index"));
 
 		HttpSession session = request.getSession();
-		session.invalidate();
 		//S2A205infoBean InfoBean = (S2A205infoBean) session.getAttribute("InfoBean");
 		//if (InfoBean == null) {
 		//	InfoBean = new S2A205infoBean();
 		//}
 		S2A205infoBean infoBean = new S2A205infoBean();
-		if (index >= infoBean.getArraySize()) {
-			getServletContext().getRequestDispatcher("/errorinput.html")
-					.forward(request, response);
-			return;
-		}
+		//		if (index >= infoBean.getArraySize()) {
+		//			getServletContext().getRequestDispatcher("/errorinput.html")
+		//					.forward(request, response);
+		//			return;
+		//		}
 
 		//Beans作成不要
 
@@ -52,18 +51,19 @@ public class DeleteServlet extends HttpServlet {
 			Class.forName(drvName);
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();) {
-				stmt.executeUpdate("DELETE FROM TODOLIST WHERE no=" + index);
+				stmt.executeUpdate("DELETE FROM TODOLIST WHERE NO=" + index);
 			}
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(
-							"SELECT * FROM TODOLIST ORDER BY IMPORTANT desc")) {
+							"SELECT * FROM TODOLIST ORDER BY NO")) {
 				while (rs.next()) {
 					S2A205RecordBean todoBean = new S2A205RecordBean();
 					todoBean.setImportant(rs.getString("IMPORTANT"));
 					todoBean.setText(rs.getString("TEXT"));
 					todoBean.setMemo(rs.getString("MEMO"));
 					todoBean.setLi(rs.getString("LI"));
+					todoBean.setNo(rs.getInt("No"));
 					infoBean.addstudentRecord(todoBean);
 				}
 			}
@@ -80,8 +80,9 @@ public class DeleteServlet extends HttpServlet {
 
 		session.setAttribute("InfoBean", infoBean);
 
-		getServletContext()
-				.getRequestDispatcher("/output2.jsp").forward(request, response);
+		//getServletContext()
+		//.getRequestDispatcher("/output2.jsp").forward(request, response);
+		response.sendRedirect("output2.jsp");
 	}
 
 }

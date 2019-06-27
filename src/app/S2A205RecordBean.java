@@ -8,6 +8,7 @@ public class S2A205RecordBean implements Serializable {
 	private String text;
 	private String memo;
 	private String li;
+	private int no;
 
 	public S2A205RecordBean() {
 	}
@@ -42,5 +43,13 @@ public class S2A205RecordBean implements Serializable {
 
 	public void setLi(String li) {
 		this.li = li;
+	}
+
+	public int getNo() {
+		return this.no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 }

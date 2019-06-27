@@ -17,11 +17,11 @@
 <h1>TODOアプリケーション</h1>
 <jsp:useBean id="InfoBean" class="app.S2A205infoBean" scope="session" />
 <table border="1" align="center">
-<tr><th>重要度</th><th>内容</th><th>メモ</th><th>締め切り</th></tr>
+<tr><th>No</th><th>重要度</th><th>内容</th><th>メモ</th><th>締め切り</th></tr>
 <%
 ArrayList<S2A205RecordBean> RecordArray = InfoBean.getRecordArray();
 for(S2A205RecordBean rcd : RecordArray) {
-	out.println("<tr><td>" + rcd.getImportant() + "</td><td>" + rcd.getText() + "</td><td>" + rcd.getMemo() + "</td><td>" +rcd.getLi() +"</td></tr>");
+	out.println("<tr><td>" + rcd.getNo() +"</td><td>" + rcd.getImportant() + "</td><td>" + rcd.getText() + "</td><td>" + rcd.getMemo() + "</td><td>" +rcd.getLi() +"</td></tr>");
 }
 %>
 </table>
