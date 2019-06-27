@@ -35,7 +35,7 @@ for(S2A205RecordBean rcd : RecordArray) {
 	</form>
 <br>
 <%
-        out.println("<form action=\"S2A205RemoveServlet\" " + "method=\"post\">");
+        out.println("<form action=\"ALLDeleteServlet\" " + "method=\"get\">");
 		out.println("<input type=\"submit\" " + "value=\"一括削除\">");
 		out.println("</form>");
 		out.println("<br>");

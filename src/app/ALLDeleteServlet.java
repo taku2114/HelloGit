@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class S2A205Servlet
  */
-@WebServlet("/DeleteServlet")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/ALLDeleteServlet")
+public class ALLDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	String drvName = "oracle.jdbc.driver.OracleDriver";// OracleのJDBCﾄﾞﾗｲﾊﾞ名
@@ -52,7 +52,7 @@ public class DeleteServlet extends HttpServlet {
 			Class.forName(drvName);
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();) {
-				stmt.executeUpdate("DELETE FROM TODOLIST WHERE no=" + index);
+				stmt.executeUpdate("DELETE FROM TODOLIST");
 			}
 			try (Connection conn = DriverManager.getConnection(url + servername + ":" + port + ":" + sid, user, pass);
 					Statement stmt = conn.createStatement();
