@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<h1>TODOアプリケーション</h1>
+<h1>TASK MANAGER</h1>
 <jsp:useBean id="InfoBean" class="app.S2A205infoBean" scope="session" />
 <table border="1" align="center">
 <tr><th>No</th><th>重要度</th><th>内容</th><th>メモ</th><th>締め切り</th></tr>
